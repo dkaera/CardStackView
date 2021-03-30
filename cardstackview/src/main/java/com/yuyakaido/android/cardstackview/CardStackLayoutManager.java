@@ -53,7 +53,7 @@ public class CardStackLayoutManager
         if (s.didStructureChange()) {
             View topView = getTopView();
             if (topView != null) {
-                listener.onCardAppeared(getTopView(), state.topPosition);
+                listener.onCardAppeared(topView, state.topPosition);
             }
         }
     }
@@ -266,7 +266,10 @@ public class CardStackLayoutManager
             // 4. Aをスワイプする
             // 5. カードを1枚だけ画面に表示する（このカードをBとする）
             // 6. ページング完了後はBが表示されるはずが、Aが画面に表示される
-            removeAndRecycleView(getTopView(), recycler);
+            View topView = getTopView();
+            if (topView != null) {
+                removeAndRecycleView(topView, recycler);
+            }
 
             final Direction direction = state.getDirection();
 
@@ -315,7 +318,7 @@ public class CardStackLayoutManager
                     listener.onCardSwiped(direction);
                     View topView = getTopView();
                     if (topView != null) {
-                        listener.onCardAppeared(getTopView(), state.topPosition);
+                        listener.onCardAppeared(topView, state.topPosition);
                     }
                 }
             });
@@ -561,7 +564,7 @@ public class CardStackLayoutManager
     private void smoothScrollToPrevious(int position) {
         View topView = getTopView();
         if (topView != null) {
-            listener.onCardDisappeared(getTopView(), state.topPosition);
+            listener.onCardDisappeared(topView, state.topPosition);
         }
 
         state.proportion = 0.0f;
