@@ -2,6 +2,7 @@ package com.yuyakaido.android.cardstackview;
 
 import android.content.Context;
 import android.graphics.PointF;
+import android.os.Build;
 import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
@@ -411,7 +412,7 @@ public class CardStackLayoutManager
         int nextIndex = index - 1;
         float currentScale = 1.0f - index * (1.0f - setting.scaleInterval);
         float nextScale = 1.0f - nextIndex * (1.0f - setting.scaleInterval);
-        float targetScale = currentScale + (nextScale - currentScale) * state.getRatio();
+        float targetScale = validateTargetScale(currentScale + (nextScale - currentScale) * state.getRatio());
         switch (setting.stackFrom) {
             case None:
                 view.setScaleX(targetScale);
@@ -450,6 +451,19 @@ public class CardStackLayoutManager
                 view.setScaleY(targetScale);
                 break;
         }
+    }
+
+    private float validateTargetScale(float targetScale) {
+        boolean isFinite;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            isFinite = Float.isFinite(targetScale);
+        } else {
+            isFinite = Math.abs(targetScale) <= Float.MAX_VALUE;
+        }
+        if (!isFinite) {
+            targetScale = 1;
+        }
+        return targetScale;
     }
 
     private void resetScale(View view) {
