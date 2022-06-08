@@ -21,14 +21,15 @@ publish {
 }
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 32
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 28
+        targetSdkVersion 32
     }
+    namespace 'com.yuyakaido.android.cardstackview'
 }
 
 dependencies {
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
 }
