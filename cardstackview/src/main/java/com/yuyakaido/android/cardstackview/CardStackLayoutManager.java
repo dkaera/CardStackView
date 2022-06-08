@@ -271,7 +271,7 @@ public class CardStackLayoutManager
                 removeAndRecycleView(topView, recycler);
             }
 
-            final Direction direction = state.getDirection();
+            final Direction direction = state.getDirection(setting.directions);
 
             state.next(state.status.toAnimatedStatus());
             state.topPosition++;
@@ -356,7 +356,7 @@ public class CardStackLayoutManager
         }
 
         if (state.status.isDragging()) {
-            listener.onCardDragging(state.getDirection(), state.getRatio());
+            listener.onCardDragging(state.getDirection(setting.directions), state.getRatio());
         }
     }
 
@@ -500,7 +500,7 @@ public class CardStackLayoutManager
         if (bottomOverlay != null) {
             bottomOverlay.setAlpha(0.0f);
         }
-        Direction direction = state.getDirection();
+        Direction direction = state.getDirection(setting.directions);
         float alpha = setting.overlayInterpolator.getInterpolation(state.getRatio());
         switch (direction) {
             case Left:

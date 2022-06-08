@@ -1,8 +1,12 @@
 package com.yuyakaido.android.cardstackview.internal;
 
+import android.util.Log;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.yuyakaido.android.cardstackview.Direction;
+
+import java.util.List;
 
 public class CardStackState {
     public Status status = Status.Idle;
@@ -51,8 +55,10 @@ public class CardStackState {
         this.status = state;
     }
 
-    public Direction getDirection() {
-        if (Math.abs(dy) < Math.abs(dx)) {
+    public Direction getDirection(List<Direction> allowedDirections) {
+        boolean horizontalAllowedOnly = isHorizontalAllowedOnly(allowedDirections);
+        boolean isHorizontal = Math.abs(dy) < Math.abs(dx);
+        if (isHorizontal || horizontalAllowedOnly) {
             if (dx < 0.0f) {
                 return Direction.Left;
             } else {
@@ -65,6 +71,11 @@ public class CardStackState {
                 return Direction.Bottom;
             }
         }
+    }
+
+    private boolean isHorizontalAllowedOnly(List<Direction> allowedDirections) {
+        return !allowedDirections.contains(Direction.Top)
+                && !allowedDirections.contains(Direction.Bottom);
     }
 
     public float getRatio() {
