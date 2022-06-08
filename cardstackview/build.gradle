@@ -1,24 +1,25 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+//apply plugin: 'com.novoda.bintray-release'
 
 buildscript {
     repositories {
         jcenter()
     }
-    dependencies {
-        classpath 'com.novoda:bintray-release:0.9.1'
-    }
+//    dependencies {
+//        Plugin is officially no longer under maintenance since 10/02/2022
+//        classpath 'com.novoda:bintray-release:0.9.1'
+//    }
 }
 
-publish {
-    userOrg = 'yuyakaido'
-    uploadName = 'CardStackView'
-    groupId = 'com.yuyakaido.android'
-    artifactId = 'card-stack-view'
-    publishVersion = '2.3.4'
-    desc = 'Tinder like swipeable card view for Android'
-    website = 'https://github.com/yuyakaido/CardStackView'
-}
+//publish {
+//    userOrg = 'yuyakaido'
+//    uploadName = 'CardStackView'
+//    groupId = 'com.yuyakaido.android'
+//    artifactId = 'card-stack-view'
+//    publishVersion = '2.3.4'
+//    desc = 'Tinder like swipeable card view for Android'
+//    website = 'https://github.com/yuyakaido/CardStackView'
+//}
 
 android {
     compileSdkVersion 32
